@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 import requests
 
 # NOTE: you must manually set API_KEY below using information retrieved from your IBM Cloud account.
-API_KEY = "UQfAKmX7EEgGGwkOyrDaKbtHjMUmz0teu62u6Rq27rVx"
+API_KEY = "rxHtGMXodQle_0VjOA6CdDqscRJN19bps6hecPiyZgsA"
 token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
 mltoken = token_response.json()["access_token"]
 header = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + mltoken}
@@ -70,7 +70,7 @@ def predict():
 	# NOTE: manually define and pass the array(s) of values to be scored in the next line
 	payload_scoring = {"input_data": [{"fields": [['yearOfReg', 'powerPS', 'kilometer', 'monthOfRegistration','gearbox_labels', 'notRepairedDamage_labels', 'model_labels','brand_labels', 'fuelType_labels', 'vehicletype_labels']], "values": X}]}
 
-	response_scoring = requests.post('https://us-south.ml.cloud.ibm.com/ml/v4/deployments/7f67cbed-6222-413b-9901-b2a72807ac82/predictions?version=2022-10-30', json=payload_scoring, headers={'Authorization': 'Bearer ' + mltoken})
+	response_scoring = requests.post('https://eu-gb.ml.cloud.ibm.com/ml/v4/deployments/7fdf8d9a-30d1-4ba3-8061-5eeec8f18601/predictions?version=2022-11-19', json=payload_scoring, headers={'Authorization': 'Bearer ' + mltoken})
 	predictions = response_scoring.json()
 	print(response_scoring.json())
 	predict = predictions['predictions'][0]['values'][0][0]
